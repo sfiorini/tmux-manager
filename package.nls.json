@@ -1,5 +1,5 @@
 {
-  "extension.displayName": "TMUX Manager",
+  "extension.displayName": "tmux-mgr",
   "extension.description": "Visualize and manage tmux sessions, windows, and panes in the VS Code sidebar",
   "viewsContainer.title": "TMUX Manager",
   "view.sessions.name": "Tmux Sessions",
