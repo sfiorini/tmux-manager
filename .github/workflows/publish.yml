@@ -1,0 +1,56 @@
+name: Publish Extension
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build extension
+        run: npm run build
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Check localization
+        run: npm run l10n:check
+
+      - name: Package VSIX
+        run: |
+          mkdir -p release
+          VERSION=$(node -p "require('./package.json').version")
+          VSIX_PATH="release/tmux-manager-${VERSION}.vsix"
+          npx @vscode/vsce package --out "${VSIX_PATH}"
+          echo "VSIX_PATH=${VSIX_PATH}" >> "$GITHUB_ENV"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+
+      - name: Publish to Microsoft Marketplace
+        run: npx @vscode/vsce publish --packagePath "${VSIX_PATH}" -p "${{ secrets.VSCE_TOKEN }}"
+
+      - name: Publish to Open VSX
+        run: npx ovsx publish "${VSIX_PATH}" -p "${{ secrets.OVSX_TOKEN }}"
+
+      - name: Upload VSIX to GitHub Release
+        run: |
+          if gh release view "v${VERSION}" > /dev/null 2>&1; then
+            gh release upload "v${VERSION}" "${VSIX_PATH}" --clobber
+          else
+            gh release create "v${VERSION}" "${VSIX_PATH}" --title "v${VERSION}" --generate-notes
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}

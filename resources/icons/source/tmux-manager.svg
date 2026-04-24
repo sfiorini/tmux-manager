@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="TMUX Manager icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#1f2937"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="48" fill="url(#bg)"/>
+  <rect x="34" y="48" width="188" height="160" rx="18" fill="#020617" stroke="url(#accent)" stroke-width="8"/>
+  <rect x="34" y="48" width="188" height="32" rx="18" fill="#0f172a"/>
+  <circle cx="58" cy="64" r="5" fill="#f87171"/>
+  <circle cx="78" cy="64" r="5" fill="#fbbf24"/>
+  <circle cx="98" cy="64" r="5" fill="#34d399"/>
+  <path d="M64 112h54v64H64zM138 112h54v26h-54zM138 154h54v22h-54z" fill="#0f172a" stroke="#38bdf8" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M74 132l18 12-18 12" fill="none" stroke="#34d399" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M102 158h22" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+  <text x="165" y="134" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#e5e7eb">TM</text>
+  <path d="M152 164h28" stroke="#34d399" stroke-width="7" stroke-linecap="round"/>
+</svg>

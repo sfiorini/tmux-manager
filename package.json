@@ -1,0 +1,302 @@
+{
+  "name": "tmux-manager",
+  "displayName": "%extension.displayName%",
+  "description": "%extension.description%",
+  "version": "0.1.0",
+  "publisher": "sfiorini",
+  "license": "MIT",
+  "icon": "resources/icons/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sfiorini/tmux-manager"
+  },
+  "bugs": {
+    "url": "https://github.com/sfiorini/tmux-manager/issues"
+  },
+  "homepage": "https://github.com/sfiorini/tmux-manager#readme",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "tmux",
+    "terminal",
+    "ssh",
+    "session",
+    "pane",
+    "multiplexer",
+    "remote"
+  ],
+  "main": "./dist/extension.js",
+  "l10n": "./l10n",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "tmuxManager",
+          "title": "%viewsContainer.title%",
+          "icon": "resources/icons/tmux.svg"
+        }
+      ]
+    },
+    "views": {
+      "tmuxManager": [
+        {
+          "id": "tmuxManager.sessions",
+          "name": "%view.sessions.name%"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "tmuxManager.refresh",
+        "title": "%command.refresh%",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "tmuxManager.toggleSortOrder",
+        "title": "%command.toggleSortOrder%",
+        "icon": "$(list-ordered)"
+      },
+      {
+        "command": "tmuxManager.createSession",
+        "title": "%command.createSession%",
+        "icon": "$(add)"
+      },
+      {
+        "command": "tmuxManager.deleteSession",
+        "title": "%command.deleteSession%",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "tmuxManager.renameSession",
+        "title": "%command.renameSession%"
+      },
+      {
+        "command": "tmuxManager.attachSession",
+        "title": "%command.attachSession%"
+      },
+      {
+        "command": "tmuxManager.quickAttach",
+        "title": "%command.quickAttach%"
+      },
+      {
+        "command": "tmuxManager.createWindow",
+        "title": "%command.createWindow%",
+        "icon": "$(add)"
+      },
+      {
+        "command": "tmuxManager.deleteWindow",
+        "title": "%command.deleteWindow%"
+      },
+      {
+        "command": "tmuxManager.renameWindow",
+        "title": "%command.renameWindow%"
+      },
+      {
+        "command": "tmuxManager.selectWindow",
+        "title": "%command.selectWindow%"
+      },
+      {
+        "command": "tmuxManager.selectPane",
+        "title": "%command.selectPane%"
+      },
+      {
+        "command": "tmuxManager.splitPaneHorizontal",
+        "title": "%command.splitPaneHorizontal%"
+      },
+      {
+        "command": "tmuxManager.splitPaneVertical",
+        "title": "%command.splitPaneVertical%"
+      },
+      {
+        "command": "tmuxManager.killPane",
+        "title": "%command.killPane%"
+      },
+      {
+        "command": "tmuxManager.swapPane",
+        "title": "%command.swapPane%"
+      },
+      {
+        "command": "tmuxManager.resizePane",
+        "title": "%command.resizePane%"
+      },
+      {
+        "command": "tmuxManager.toggleMouseMode",
+        "title": "%command.toggleMouseMode%",
+        "icon": "$(symbol-boolean)"
+      },
+      {
+        "command": "tmuxManager.addConnection",
+        "title": "%command.addConnection%",
+        "icon": "$(remote)"
+      },
+      {
+        "command": "tmuxManager.removeConnection",
+        "title": "%command.removeConnection%"
+      },
+      {
+        "command": "tmuxManager.editConnection",
+        "title": "%command.editConnection%"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "tmuxManager.refresh",
+          "when": "view == tmuxManager.sessions",
+          "group": "navigation"
+        },
+        {
+          "command": "tmuxManager.toggleSortOrder",
+          "when": "view == tmuxManager.sessions",
+          "group": "navigation"
+        },
+        {
+          "command": "tmuxManager.addConnection",
+          "when": "view == tmuxManager.sessions",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "tmuxManager.attachSession",
+          "when": "view == tmuxManager.sessions && viewItem == session",
+          "group": "1_actions@1"
+        },
+        {
+          "command": "tmuxManager.renameSession",
+          "when": "view == tmuxManager.sessions && viewItem == session",
+          "group": "2_modify@1"
+        },
+        {
+          "command": "tmuxManager.createWindow",
+          "when": "view == tmuxManager.sessions && viewItem == session",
+          "group": "2_modify@2"
+        },
+        {
+          "command": "tmuxManager.deleteSession",
+          "when": "view == tmuxManager.sessions && viewItem == session",
+          "group": "3_delete@1"
+        },
+        {
+          "command": "tmuxManager.selectWindow",
+          "when": "view == tmuxManager.sessions && viewItem == window",
+          "group": "1_actions@1"
+        },
+        {
+          "command": "tmuxManager.renameWindow",
+          "when": "view == tmuxManager.sessions && viewItem =~ /^(window|activeWindow)$/",
+          "group": "2_modify@1"
+        },
+        {
+          "command": "tmuxManager.splitPaneHorizontal",
+          "when": "view == tmuxManager.sessions && viewItem =~ /^(window|activeWindow)$/",
+          "group": "2_modify@2"
+        },
+        {
+          "command": "tmuxManager.splitPaneVertical",
+          "when": "view == tmuxManager.sessions && viewItem =~ /^(window|activeWindow)$/",
+          "group": "2_modify@3"
+        },
+        {
+          "command": "tmuxManager.deleteWindow",
+          "when": "view == tmuxManager.sessions && viewItem =~ /^(window|activeWindow)$/",
+          "group": "3_delete@1"
+        },
+        {
+          "command": "tmuxManager.selectPane",
+          "when": "view == tmuxManager.sessions && viewItem == pane",
+          "group": "1_actions@1"
+        },
+        {
+          "command": "tmuxManager.splitPaneHorizontal",
+          "when": "view == tmuxManager.sessions && viewItem =~ /^(pane|activePane)$/",
+          "group": "2_modify@1"
+        },
+        {
+          "command": "tmuxManager.splitPaneVertical",
+          "when": "view == tmuxManager.sessions && viewItem =~ /^(pane|activePane)$/",
+          "group": "2_modify@2"
+        },
+        {
+          "command": "tmuxManager.swapPane",
+          "when": "view == tmuxManager.sessions && viewItem =~ /^(pane|activePane)$/",
+          "group": "2_modify@3"
+        },
+        {
+          "command": "tmuxManager.resizePane",
+          "when": "view == tmuxManager.sessions && viewItem =~ /^(pane|activePane)$/",
+          "group": "2_modify@4"
+        },
+        {
+          "command": "tmuxManager.killPane",
+          "when": "view == tmuxManager.sessions && viewItem =~ /^(pane|activePane)$/",
+          "group": "3_delete@1"
+        },
+        {
+          "command": "tmuxManager.toggleMouseMode",
+          "when": "view == tmuxManager.sessions && viewItem =~ /^(localConnection|sshConnection)$/",
+          "group": "1_actions@2"
+        },
+        {
+          "command": "tmuxManager.editConnection",
+          "when": "view == tmuxManager.sessions && viewItem == sshConnection",
+          "group": "2_modify@1"
+        },
+        {
+          "command": "tmuxManager.removeConnection",
+          "when": "view == tmuxManager.sessions && viewItem == sshConnection",
+          "group": "3_delete@1"
+        },
+        {
+          "command": "tmuxManager.createSession",
+          "when": "view == tmuxManager.sessions && viewItem == localConnection",
+          "group": "1_actions@1"
+        },
+        {
+          "command": "tmuxManager.createSession",
+          "when": "view == tmuxManager.sessions && viewItem == sshConnection",
+          "group": "1_actions@1"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build && npm run typecheck && npm run l10n:check && npm run shell-path:check && npm run manifest:check",
+    "build": "node esbuild.js --production",
+    "watch": "node esbuild.js --watch",
+    "lint": "eslint src --ext ts",
+    "typecheck": "tsc --noEmit",
+    "l10n:check": "node scripts/check-l10n.js",
+    "shell-path:check": "node scripts/check-shell-path.js",
+    "install:cursor": "npm run build && npx @vscode/vsce package --out /tmp/tmux-manager-test.vsix && cursor --install-extension /tmp/tmux-manager-test.vsix --force",
+    "manifest:check": "node scripts/check-manifest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/ssh2": "^1.11.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "esbuild": "^0.19.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "ssh2": "^1.15.0"
+  },
+  "bundledDependencies": [
+    "ssh2"
+  ],
+  "galleryBanner": {
+    "color": "#1f2937",
+    "theme": "dark"
+  },
+  "qna": false
+}
